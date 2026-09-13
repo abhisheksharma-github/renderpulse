@@ -92,40 +92,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 📦 Building for Production
-
-```bash
-npm run build
-```
-The optimized static production bundle is generated in the `dist/` directory.
-
----
-
-## 🌐 Deploying to Vercel (Step-by-Step)
-
-### Method 1: Deploy via Vercel Web Dashboard (Recommended)
-1. Push your repository to **GitHub / GitLab / Bitbucket**.
-2. Go to [vercel.com](https://vercel.com) and click **"Add New Project"**.
-3. Import your **RenderPulse** repository.
-4. Vercel will automatically detect **Vite**:
-   - **Framework Preset**: `Vite`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-5. Click **Deploy**. Your app will be live on a `*.vercel.app` domain in under 30 seconds!
-
-### Method 2: Deploy via Vercel CLI
-```bash
-# 1. Install Vercel CLI globally
-npm i -g vercel
-
-# 2. Deploy from your project root
-vercel
-
-# 3. Deploy to production
-vercel --prod
-```
-
----
 
 ## 👨‍💻 Author & Maintainer
 
