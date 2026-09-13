@@ -19,6 +19,41 @@ Render free-tier web services automatically spin down containers to **0 replicas
 
 ---
 
+## 🏗️ System Architecture
+RenderPulse is designed as a fully decentralized, client-side single-page application (SPA). It requires zero server infrastructure, backend database, or cloud tokens, ensuring total user privacy and zero maintenance cost.
+
+```text
+┌────────────────────────────────────────────────────────┐
+│                      User Browser                      │
+│                                                        │
+│  ┌──────────────────┐         ┌─────────────────────┐  │
+│  │   UI & React     │◄───────►│  localStorage (State│  │
+│  │   Components     │         │   & Configuration)  │  │
+│  └────────┬─────────┘         └─────────────────────┘  │
+│           │                                            │
+│           │ Dispatches Parallel Requests               │
+│           ▼                                            │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │ Execution Engine: Promise.allSettled()           │  │
+│  │ fetch(url, { mode: 'no-cors', cache: 'no-store' })│  │
+│  └────────┬─────────────────────────────────────────┘  │
+└───────────┼────────────────────────────────────────────/
+            │
+            ▼ Direct HTTPS Ping
+┌────────────────────────────────────────────────────────┐
+│                   Render Cloud Edge                    │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │ Render Edge Router (Detects inbound traffic)     │  │
+│  └────────┬─────────────────────────────────────────┘  │
+│           ▼ Triggers Cold Boot                         │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │ Container Instances (Spins up replicas from 0)   │  │
+│  └──────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────┘
+```
+
+---
+
 ## 🌟 Key Features
 
 - ⚡ **Master "Wake All Services" CTA**: Dispatches parallel requests (`Promise.allSettled()`) with a live 60-second cold-boot progress timer.
