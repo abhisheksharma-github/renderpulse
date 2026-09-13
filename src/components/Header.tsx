@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleSound,
 }) => {
   return (
-    <header className="sticky top-0 z-30 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-xl transition-all">
+    <header className="sticky top-0 z-30 w-full border-b border-slate-200/80 bg-white/90 dark:border-slate-800/80 dark:bg-slate-950/90 backdrop-blur-xl transition-colors duration-200">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-3">
           {/* Left Brand Identity & Subtitle */}
@@ -46,20 +46,20 @@ export const Header: React.FC<HeaderProps> = ({
               <Zap className="h-5 w-5 text-slate-950 fill-slate-950 stroke-[2.5]" />
               <span className="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-slate-950"></span>
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-950"></span>
               </span>
             </div>
 
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <span className="text-xl font-black tracking-tight text-white">
-                  Render<span className="text-emerald-400">Pulse</span>
+                <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
+                  Render<span className="text-emerald-500 dark:text-emerald-400">Pulse</span>
                 </span>
-                <span className="hidden sm:inline-flex items-center rounded-md bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-400 border border-emerald-500/20">
+                <span className="hidden sm:inline-flex items-center rounded-md bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                   Zero-Setup
                 </span>
               </div>
-              <p className="hidden md:block text-[11px] font-medium text-slate-400 truncate">
+              <p className="hidden md:block text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate">
                 Instant Multi-Service Awakener for Render
               </p>
             </div>
@@ -68,10 +68,10 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Center Zero-Leakage Badge */}
           <div className="hidden lg:flex items-center gap-2">
             <div 
-              className="flex items-center gap-1.5 rounded-full bg-slate-900/90 px-3 py-1 text-xs font-medium text-slate-300 border border-slate-800 shadow-inner"
+              className="flex items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-900/90 px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 shadow-inner"
               title="100% Client-Side Privacy: No backend or database. Data stays exclusively in your browser."
             >
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" />
               <span>100% Client-Side • Zero Data Leakage</span>
             </div>
           </div>
@@ -88,17 +88,17 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             {/* Import / Export JSON Buttons */}
-            <div className="flex items-center gap-1 bg-slate-900/90 rounded-xl p-1 border border-slate-800">
+            <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-900/90 rounded-xl p-1 border border-slate-200 dark:border-slate-800">
               <button
                 onClick={onExportJson}
-                className="p-1.5 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 rounded-lg transition-colors"
+                className="p-1.5 text-slate-600 hover:text-emerald-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-emerald-400 dark:hover:bg-slate-800 rounded-lg transition-colors"
                 title="Export Services (Sanitized JSON backup)"
               >
                 <Download className="h-4 w-4" />
               </button>
               <button
                 onClick={onImportJsonClick}
-                className="p-1.5 text-slate-400 hover:text-emerald-400 hover:bg-slate-800 rounded-lg transition-colors"
+                className="p-1.5 text-slate-600 hover:text-emerald-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:text-emerald-400 dark:hover:bg-slate-800 rounded-lg transition-colors"
                 title="Import Services (Restore from JSON)"
               >
                 <Upload className="h-4 w-4" />
@@ -108,33 +108,33 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Sound Toggle */}
             <button
               onClick={onToggleSound}
-              className="p-2 rounded-xl bg-slate-900/90 text-slate-400 hover:text-white border border-slate-800 hover:bg-slate-850 transition-all"
+              className="p-2 rounded-xl bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-200 dark:bg-slate-900/90 dark:text-slate-400 dark:hover:text-white dark:border-slate-800 dark:hover:bg-slate-850 transition-all"
               title={settings.soundEnabled ? 'Chime Sound Enabled' : 'Chime Sound Muted'}
             >
               {settings.soundEnabled ? (
-                <Volume2 className="h-4 w-4 text-emerald-400" />
+                <Volume2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
               ) : (
-                <VolumeX className="h-4 w-4 text-slate-500" />
+                <VolumeX className="h-4 w-4 text-slate-400 dark:text-slate-500" />
               )}
             </button>
 
             {/* Theme Toggle */}
             <button
               onClick={onToggleTheme}
-              className="p-2 rounded-xl bg-slate-900/90 text-slate-400 hover:text-white border border-slate-800 hover:bg-slate-850 transition-all"
+              className="p-2 rounded-xl bg-slate-100 text-slate-700 hover:text-slate-950 border border-slate-200 hover:bg-slate-200 dark:bg-slate-900/90 dark:text-slate-400 dark:hover:text-white dark:border-slate-800 dark:hover:bg-slate-850 transition-all"
               title={settings.theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {settings.theme === 'dark' ? (
                 <Sun className="h-4 w-4 text-amber-400" />
               ) : (
-                <Moon className="h-4 w-4 text-slate-300" />
+                <Moon className="h-4 w-4 text-slate-700" />
               )}
             </button>
 
             {/* Docs & Architecture Guide */}
             <button
               onClick={onOpenDocs}
-              className="p-2 rounded-xl bg-slate-900/90 text-slate-400 hover:text-white border border-slate-800 hover:bg-slate-850 transition-all"
+              className="p-2 rounded-xl bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-200 dark:bg-slate-900/90 dark:text-slate-400 dark:hover:text-white dark:border-slate-800 dark:hover:bg-slate-850 transition-all"
               title="How Render Free-Tier Sleeping Works & FAQ"
             >
               <BookOpen className="h-4 w-4" />
@@ -143,7 +143,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Wipe All Data Button */}
             <button
               onClick={onOpenWipeModal}
-              className="p-2 rounded-xl bg-rose-500/10 text-rose-400 hover:text-rose-300 hover:bg-rose-500/20 border border-rose-500/20 hover:border-rose-500/40 transition-all"
+              className="p-2 rounded-xl bg-rose-500/10 text-rose-600 hover:text-rose-700 hover:bg-rose-500/20 border border-rose-500/20 hover:border-rose-500/40 dark:text-rose-400 dark:hover:text-rose-300 transition-all"
               title="Wipe All Stored Data & Reset"
             >
               <Trash2 className="h-4 w-4" />

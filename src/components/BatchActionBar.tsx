@@ -27,19 +27,19 @@ export const BatchActionBar: React.FC<BatchActionBarProps> = ({
   if (total === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 p-3 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/90 shadow-2xl transition-all md:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-40 p-3 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-t border-slate-200/90 dark:border-slate-800/90 shadow-2xl transition-all md:hidden">
       <div className="mx-auto flex max-w-lg items-center justify-between gap-2">
         {/* Toggle Select Checkbox Button (44px min tap target) */}
         <button
           onClick={onToggleSelectAll}
-          className="flex min-h-[44px] items-center justify-center gap-1.5 rounded-xl bg-slate-900 border border-slate-800 px-3.5 text-xs font-semibold text-slate-300 active:scale-95 transition-all"
+          className="flex min-h-[44px] items-center justify-center gap-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3.5 text-xs font-semibold text-slate-700 dark:text-slate-300 active:scale-95 transition-all"
         >
           {allSelected ? (
-            <CheckSquare className="h-4 w-4 text-emerald-400" />
+            <CheckSquare className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
           ) : selectedCount > 0 ? (
-            <CheckSquare className="h-4 w-4 text-indigo-400 opacity-80" />
+            <CheckSquare className="h-4 w-4 text-indigo-500 dark:text-indigo-400 opacity-80" />
           ) : (
-            <Square className="h-4 w-4 text-slate-500" />
+            <Square className="h-4 w-4 text-slate-400 dark:text-slate-500" />
           )}
           <span className="font-mono text-xs font-bold">{selectedCount}/{total}</span>
         </button>
@@ -65,7 +65,7 @@ export const BatchActionBar: React.FC<BatchActionBarProps> = ({
         {healthyCount > 0 && (
           <button
             onClick={onOpenAwakeSites}
-            className="flex min-h-[44px] items-center justify-center gap-1 rounded-xl bg-teal-500/20 text-teal-300 border border-teal-500/30 px-3 text-xs font-semibold active:scale-95 transition-all"
+            className="flex min-h-[44px] items-center justify-center gap-1 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-700 border border-teal-200 dark:bg-teal-500/20 dark:text-teal-300 dark:border-teal-500/30 px-3 text-xs font-semibold active:scale-95 transition-all"
             title="Open all awake services in new tabs"
           >
             <ExternalLink className="h-4 w-4" />

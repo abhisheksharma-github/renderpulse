@@ -93,32 +93,32 @@ export const AddEditServiceModal: React.FC<AddEditServiceModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div className="relative w-full max-w-lg rounded-2xl glass-panel border border-slate-700/80 bg-slate-950 p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+      <div className="relative w-full max-w-lg rounded-3xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
               {editingService ? <Edit3 className="h-5 w-5" /> : <Plus className="h-5 w-5 stroke-[2.5]" />}
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white tracking-tight">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
                 {editingService ? 'Edit Render Service' : 'Add Render Service'}
               </h2>
-              <p className="text-xs text-slate-400">Configure public endpoint for parallel health pings</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Configure public endpoint for parallel health pings</p>
             </div>
           </div>
           <button
             onClick={onClose}
             aria-label="Close modal"
-            className="rounded-lg p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="rounded-xl p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-850 transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {error && (
-          <div className="mt-3 p-2.5 rounded-xl bg-rose-950/40 border border-rose-500/40 text-xs text-rose-300 font-medium">
+          <div className="mt-3 p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-500/40 text-xs text-rose-700 dark:text-rose-300 font-medium">
             {error}
           </div>
         )}
@@ -127,8 +127,8 @@ export const AddEditServiceModal: React.FC<AddEditServiceModalProps> = ({
         <form onSubmit={handleSubmit} className="mt-4 space-y-4">
           {/* Service Name */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Service Name <span className="text-emerald-400">*</span>
+            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+              Service Name <span className="text-emerald-500">*</span>
             </label>
             <input
               type="text"
@@ -136,14 +136,14 @@ export const AddEditServiceModal: React.FC<AddEditServiceModalProps> = ({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. E-Commerce Backend API"
-              className="w-full rounded-xl bg-slate-900 border border-slate-800 px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-medium"
+              className="w-full rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-medium"
             />
           </div>
 
           {/* Target URL */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Render Web Service URL <span className="text-emerald-400">*</span>
+            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+              Render Web Service URL <span className="text-emerald-500">*</span>
             </label>
             <div className="relative">
               <input
@@ -152,18 +152,18 @@ export const AddEditServiceModal: React.FC<AddEditServiceModalProps> = ({
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://my-api.onrender.com"
-                className="w-full rounded-xl bg-slate-900 border border-slate-800 pl-9 pr-3.5 py-2.5 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
+                className="w-full rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 pl-9 pr-3.5 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-mono focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"
               />
-              <Globe className="absolute left-3 top-3 h-3.5 w-3.5 text-slate-500" />
+              <Globe className="absolute left-3 top-3 h-3.5 w-3.5 text-slate-400" />
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
               The public URL of your Render free-tier web service.
             </p>
           </div>
 
           {/* Health Path & Robots Warning */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
+            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Health / Wake Path
             </label>
             <input
@@ -171,24 +171,24 @@ export const AddEditServiceModal: React.FC<AddEditServiceModalProps> = ({
               value={healthPath}
               onChange={(e) => setHealthPath(e.target.value)}
               placeholder="/"
-              className="w-full rounded-xl bg-slate-900 border border-slate-800 px-3.5 py-2.5 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+              className="w-full rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-mono placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500"
             />
-            <p className="text-[10px] text-slate-500 mt-1">e.g. <code>/</code>, <code>/health</code>, <code>/healthz</code>, or <code>/api/status</code></p>
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-1">e.g. <code>/</code>, <code>/health</code>, <code>/healthz</code>, or <code>/api/status</code></p>
           </div>
 
           {/* Robots.txt Warning Callout */}
           {robotsWarning && (
-            <div className="rounded-xl bg-amber-950/40 border border-amber-500/40 p-3 text-xs text-amber-300 flex items-start gap-2">
-              <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
+            <div className="rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-500/40 p-3 text-xs text-amber-800 dark:text-amber-300 flex items-start gap-2">
+              <AlertTriangle className="h-4 w-4 text-amber-500 dark:text-amber-400 shrink-0 mt-0.5" />
               <div>
-                <strong className="text-amber-200">Notice:</strong> Render free-tier edge routers respond to <code>/robots.txt</code> directly without waking your application container. We strongly recommend setting the path to <code>/</code> or <code>/health</code>.
+                <strong className="text-amber-900 dark:text-amber-200">Notice:</strong> Render free-tier edge routers respond to <code>/robots.txt</code> directly without waking your application container. We strongly recommend setting the path to <code>/</code> or <code>/health</code>.
               </div>
             </div>
           )}
 
           {/* Group / Tag System */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
+            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 block mb-1">
               Category / Group Tag
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -199,8 +199,8 @@ export const AddEditServiceModal: React.FC<AddEditServiceModalProps> = ({
                   onClick={() => setGroup(g)}
                   className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all text-center truncate ${
                     group === g
-                      ? 'border-emerald-500/80 bg-emerald-950/30 text-emerald-300 shadow-sm'
-                      : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700'
+                      ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300 shadow-sm'
+                      : 'border-slate-200 bg-slate-100 text-slate-700 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                   }`}
                 >
                   {g}
@@ -211,8 +211,8 @@ export const AddEditServiceModal: React.FC<AddEditServiceModalProps> = ({
                 onClick={() => setGroup('Custom')}
                 className={`py-2 px-3 rounded-xl border text-xs font-medium transition-all text-center truncate ${
                   group === 'Custom'
-                    ? 'border-indigo-500/80 bg-indigo-950/30 text-indigo-300 shadow-sm'
-                    : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700'
+                    ? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/30 dark:text-indigo-300 shadow-sm'
+                    : 'border-slate-200 bg-slate-100 text-slate-700 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
                 Custom Tag...
@@ -226,18 +226,18 @@ export const AddEditServiceModal: React.FC<AddEditServiceModalProps> = ({
                   value={customGroup}
                   onChange={(e) => setCustomGroup(e.target.value)}
                   placeholder="Enter custom category name (e.g. Client X)"
-                  className="w-full rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 px-3.5 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
             )}
           </div>
 
           {/* Submit Actions */}
-          <div className="mt-6 flex items-center justify-end gap-2 pt-4 border-t border-slate-800">
+          <div className="mt-6 flex items-center justify-end gap-2 pt-4 border-t border-slate-200 dark:border-slate-800">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 transition-colors"
+              className="px-4 py-2.5 text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white rounded-xl hover:bg-slate-100 dark:hover:bg-slate-850 transition-colors"
             >
               Cancel
             </button>

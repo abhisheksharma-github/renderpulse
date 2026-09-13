@@ -38,29 +38,26 @@ export function isValidHttpUrl(str: string): boolean {
 }
 
 /**
- * Sends a non-blocking HTTP health ping using mode: 'no-cors' and cache: 'no-store'
- * This safely hits Render's edge ingress router to initiate cold boot without CORS blocking.
+ * Sends a clean, standard non-blocking HTTP health ping using mode: 'no-cors' and cache: 'no-store'
+ * This safely reaches Render's edge ingress router to initiate cold boot without CORS errors.
  */
 export async function sendZeroAuthPing(
   targetUrl: string,
   timeoutMs = 15000
 ): Promise<PingResult> {
   const startTime = performance.now();
-  const cacheBuster = `${targetUrl}${targetUrl.includes('?') ? '&' : '?'}_renderpulse_ping=${Date.now()}`;
+  const cacheBuster = `${targetUrl}${targetUrl.includes('?') ? '&' : '?'}_rp_ping=${Date.now()}`;
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
+    // Standard no-cors request mimicking standard browser asset/page hit
     await fetch(cacheBuster, {
       method: 'GET',
       mode: 'no-cors',
       cache: 'no-store',
       signal: controller.signal,
-      headers: {
-        'Accept': '*/*',
-        'X-RenderPulse-Wake': '1'
-      }
     });
 
     clearTimeout(timeoutId);
@@ -68,7 +65,7 @@ export async function sendZeroAuthPing(
     return {
       success: true,
       latencyMs: latency,
-      message: `Ingress ping acknowledged in ${latency}ms (Cold boot initialized)`
+      message: `Ingress ping delivered in ${latency}ms (Cold boot initialized)`
     };
   } catch (err: any) {
     clearTimeout(timeoutId);

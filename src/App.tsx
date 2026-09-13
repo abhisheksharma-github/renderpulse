@@ -56,7 +56,7 @@ export function App() {
     saveStoredServices(services);
   }, [services]);
 
-  // Persist Settings & Apply Theme
+  // Persist Settings & Apply Theme dynamically
   useEffect(() => {
     saveStoredSettings(settings);
     if (settings.theme === 'dark') {
@@ -346,7 +346,7 @@ export function App() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-emerald-500 selection:text-slate-950 pb-20 md:pb-8">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-emerald-500 selection:text-slate-950 pb-20 md:pb-8 transition-colors duration-200">
       {/* Hidden File Input for JSON Import */}
       <input
         type="file"
@@ -384,10 +384,10 @@ export function App() {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-20 right-4 z-50 flex items-center gap-2 rounded-2xl glass-panel px-4 py-3 text-xs font-semibold shadow-2xl border transition-all animate-in fade-in slide-in-from-top-4 duration-300">
-          {toastMessage.type === 'success' && <CheckCircle2 className="h-4 w-4 text-emerald-400" />}
-          {toastMessage.type === 'error' && <AlertCircle className="h-4 w-4 text-rose-400" />}
-          {toastMessage.type === 'info' && <Sparkles className="h-4 w-4 text-teal-400" />}
+        <div className="fixed top-20 right-4 z-50 flex items-center gap-2 rounded-2xl glass-panel bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-800 px-4 py-3 text-xs font-semibold shadow-2xl transition-all animate-in fade-in slide-in-from-top-4 duration-300">
+          {toastMessage.type === 'success' && <CheckCircle2 className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />}
+          {toastMessage.type === 'error' && <AlertCircle className="h-4 w-4 text-rose-500 dark:text-rose-400" />}
+          {toastMessage.type === 'info' && <Sparkles className="h-4 w-4 text-teal-500 dark:text-teal-400" />}
           <span>{toastMessage.text}</span>
         </div>
       )}
@@ -412,29 +412,29 @@ export function App() {
 
         {/* Empty State / Onboarding View */}
         {filteredServices.length === 0 ? (
-          <div className="rounded-3xl glass-panel border border-slate-800 p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-6 max-w-2xl mx-auto">
+          <div className="rounded-3xl glass-panel border border-slate-200/90 dark:border-slate-800 p-8 sm:p-12 text-center flex flex-col items-center justify-center space-y-6 max-w-2xl mx-auto shadow-sm">
             {/* Onboarding Icon */}
-            <div className="h-16 w-16 rounded-2xl bg-gradient-to-tr from-emerald-500/20 via-teal-500/10 to-indigo-500/20 flex items-center justify-center border border-emerald-500/30 text-emerald-400 shadow-xl shadow-emerald-500/10">
-              <Zap className="h-8 w-8 text-emerald-400 fill-emerald-400" />
+            <div className="h-16 w-16 rounded-2xl bg-gradient-to-tr from-emerald-500/20 via-teal-500/10 to-indigo-500/20 flex items-center justify-center border border-emerald-500/30 text-emerald-500 dark:text-emerald-400 shadow-xl shadow-emerald-500/10">
+              <Zap className="h-8 w-8 text-emerald-500 dark:text-emerald-400 fill-emerald-500 dark:fill-emerald-400" />
             </div>
 
             {/* Onboarding Explanation */}
             <div className="space-y-2">
-              <h3 className="text-xl font-black text-white tracking-tight">
+              <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
                 Instant Multi-Service Awakener for Render
               </h3>
-              <p className="text-xs text-slate-300 leading-relaxed max-w-lg">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-lg">
                 Render free-tier instances automatically spin down to 0 replicas after 15 minutes of inactivity. RenderPulse lets you batch-wake all your backends and APIs simultaneously before client meetings, tests, or demos.
               </p>
             </div>
 
             {/* Privacy Callout */}
-            <div className="rounded-2xl bg-emerald-950/30 border border-emerald-500/30 p-3.5 text-xs text-emerald-300 text-left w-full space-y-1">
-              <div className="font-bold text-emerald-200 flex items-center gap-1.5">
-                <ShieldCheck className="h-4 w-4 text-emerald-400" />
+            <div className="rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/30 p-4 text-xs text-emerald-800 dark:text-emerald-300 text-left w-full space-y-1">
+              <div className="font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5">
+                <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                 <span>100% Client-Side Privacy Guarantee</span>
               </div>
-              <p className="text-[11px] text-slate-300 leading-relaxed">
+              <p className="text-[11.5px] text-slate-600 dark:text-slate-300 leading-relaxed">
                 Zero credentials required. You only input public URLs. All configurations remain strictly on this device in your browser's <code>localStorage</code>.
               </p>
             </div>
