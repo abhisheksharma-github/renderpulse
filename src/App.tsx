@@ -28,6 +28,7 @@ import { AddEditServiceModal } from './components/AddEditServiceModal';
 import { DocsModal } from './components/DocsModal';
 import { PurgeConfirmModal } from './components/PurgeConfirmModal';
 import { BatchActionBar } from './components/BatchActionBar';
+import { Footer } from './components/Footer';
 
 export function App() {
   // Core State
@@ -346,7 +347,7 @@ export function App() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-emerald-500 selection:text-slate-950 pb-20 md:pb-8 transition-colors duration-200">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-emerald-500 selection:text-slate-950 transition-colors duration-200">
       {/* Hidden File Input for JSON Import */}
       <input
         type="file"
@@ -472,6 +473,9 @@ export function App() {
           </div>
         )}
       </main>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Mobile Sticky Execution Dock */}
       <BatchActionBar

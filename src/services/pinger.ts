@@ -123,7 +123,9 @@ function fallbackImageBeacon(url: string, timeoutMs: number): Promise<void> {
 }
 
 /**
- * Drives the 60-second cold boot countdown lifecycle
+ * Drives the adaptive cold boot countdown lifecycle.
+ * Actively probes the service every few seconds so that as soon as the
+ * container boots up (e.g. in 15s or 30s), it immediately finishes without waiting 60s.
  */
 export async function executeColdBootCycle(
   service: Service,
@@ -134,45 +136,79 @@ export async function executeColdBootCycle(
 
   // Initial immediate trigger ping
   onProgress(service.id, 5, 'Pinging...', totalBootSeconds);
-  const initialPing = await sendZeroAuthPing(fullUrl, 8000);
+  const initialPing = await sendZeroAuthPing(fullUrl, 6000);
 
-  // If already warm (e.g. latency < 500ms and non-Render test target), finish fast
-  const isFastTestTarget = initialPing.success && initialPing.latencyMs < 500 && !service.url.includes('onrender.com');
-  if (isFastTestTarget) {
+  // If already warm (fast response), finish immediately
+  if (initialPing.success && initialPing.latencyMs < 2000) {
     onProgress(service.id, 100, 'Awake & Ready', 0);
-    return initialPing;
+    return {
+      success: true,
+      latencyMs: initialPing.latencyMs,
+      message: `Instance already warm (${initialPing.latencyMs}ms latency).`
+    };
   }
 
-  // Otherwise, drive the smooth 60s countdown
+  // Otherwise, drive smooth countdown with adaptive early-wake probing
   const startTime = Date.now();
 
   return new Promise((resolve) => {
+    let isFinished = false;
+    let isProbing = false;
+
+    const finishSuccess = (elapsedSec: number, latencyMs: number) => {
+      if (isFinished) return;
+      isFinished = true;
+      clearInterval(interval);
+      onProgress(service.id, 100, 'Awake & Ready', 0);
+      resolve({
+        success: true,
+        latencyMs,
+        message: `Container awake & ready in ${Math.max(1, Math.round(elapsedSec))}s.`
+      });
+    };
+
     const interval = setInterval(async () => {
+      if (isFinished) return;
+
       const now = Date.now();
       const elapsed = Math.min(totalBootSeconds, (now - startTime) / 1000);
       const remaining = Math.max(0, Math.ceil(totalBootSeconds - elapsed));
       const percentage = Math.min(95, Math.round((elapsed / totalBootSeconds) * 100));
 
       let stage: WakeStage = 'Pinging...';
-      if (elapsed > 4) stage = 'Wake Signal Sent';
-      if (elapsed > 16) stage = 'Spinning Up Container';
-      if (elapsed > 48) stage = 'Verifying Health';
+      if (elapsed > 3) stage = 'Wake Signal Sent';
+      if (elapsed > 10) stage = 'Spinning Up Container';
+      if (elapsed > 40) stage = 'Verifying Health';
 
       onProgress(service.id, percentage, stage, remaining);
 
-      if (remaining <= 3) {
+      // Adaptive Early-Wake Probing:
+      // Once past 8 seconds, send non-blocking probes every ~4-5 seconds
+      if (elapsed >= 8 && !isProbing && remaining > 3) {
+        isProbing = true;
+        sendZeroAuthPing(fullUrl, 3500)
+          .then((probeResult) => {
+            if (probeResult.success && probeResult.latencyMs < 2500 && !isFinished) {
+              finishSuccess((Date.now() - startTime) / 1000, probeResult.latencyMs);
+            }
+          })
+          .catch(() => {
+            // Ignore background probe failures while container is booting
+          })
+          .finally(() => {
+            isProbing = false;
+          });
+      }
+
+      // Final countdown completion
+      if (remaining <= 3 && !isFinished) {
         clearInterval(interval);
         onProgress(service.id, 96, 'Verifying Health', remaining);
 
-        const verifyCheck = await sendZeroAuthPing(fullUrl, 8000);
-        onProgress(service.id, 100, 'Awake & Ready', 0);
-
-        resolve({
-          success: true,
-          latencyMs: verifyCheck.latencyMs,
-          message: `Container awake & ready after ${Math.round(elapsed)}s cold boot.`
-        });
+        const verifyCheck = await sendZeroAuthPing(fullUrl, 6000);
+        finishSuccess((Date.now() - startTime) / 1000, verifyCheck.latencyMs);
       }
     }, 1000);
   });
 }
+

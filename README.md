@@ -127,5 +127,14 @@ vercel --prod
 
 ---
 
+## 👨‍💻 Author & Maintainer
+
+**Developed by Abhishek Sharma**  
+- GitHub: [@abhisheksharma-github](https://github.com/abhisheksharma-github)  
+- Repository: [RenderPulse on GitHub](https://github.com/abhisheksharma-github/renderpulse)
+
+---
+
 ## 📄 License
 MIT License • Built with ❤️ for the developer community.
+
