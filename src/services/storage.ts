@@ -3,28 +3,6 @@ import { AppSettings, Service } from '../types';
 const STORAGE_KEY_SERVICES = 'renderpulse_services_v2';
 const STORAGE_KEY_SETTINGS = 'renderpulse_settings_v2';
 
-// 2 friendly mock template items for onboarding (testable, editable, deletable)
-export const ONBOARDING_TEMPLATE_SERVICES: Service[] = [
-  {
-    id: 'tpl-1',
-    name: 'Demo Backend API',
-    url: 'https://httpbin.org',
-    group: 'APIs',
-    healthPath: '/status/200',
-    status: 'sleeping',
-    selected: true,
-  },
-  {
-    id: 'tpl-2',
-    name: 'Sample Portfolio App',
-    url: 'https://httpbin.org',
-    group: 'Portfolio',
-    healthPath: '/status/200',
-    status: 'sleeping',
-    selected: true,
-  }
-];
-
 export const DEFAULT_SETTINGS: AppSettings = {
   theme: 'dark',
   soundEnabled: true,
@@ -43,8 +21,7 @@ export function loadStoredServices(): Service[] {
   } catch (e) {
     console.warn('Failed to read localStorage services:', e);
   }
-  // If first time visit (null in storage), supply the onboarding templates
-  return ONBOARDING_TEMPLATE_SERVICES;
+  return [];
 }
 
 export function saveStoredServices(services: Service[]) {

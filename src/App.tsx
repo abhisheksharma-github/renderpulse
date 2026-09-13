@@ -6,13 +6,11 @@ import {
   AlertCircle, 
   CheckCircle2, 
   Zap, 
-  ShieldCheck, 
-  Flame 
+  ShieldCheck 
 } from 'lucide-react';
 import { AppSettings, Service } from './types';
 import { 
   DEFAULT_SETTINGS, 
-  ONBOARDING_TEMPLATE_SERVICES, 
   exportServicesJson, 
   loadStoredServices, 
   loadStoredSettings, 
@@ -336,12 +334,6 @@ export function App() {
     showToast('All local storage data has been cleared.', 'info');
   };
 
-  // Load Template Demo Services
-  const handleLoadTemplateServices = () => {
-    setServices(ONBOARDING_TEMPLATE_SERVICES);
-    showToast('Loaded sample template services!', 'success');
-  };
-
   // Filtered Services List
   const filteredServices = services.filter((s) => {
     const matchesSearch = 
@@ -447,24 +439,17 @@ export function App() {
               </p>
             </div>
 
-            {/* Actions */}
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            {/* Action */}
+            <div className="flex items-center justify-center pt-2">
               <button
                 onClick={() => {
                   setEditingService(null);
                   setIsAddEditOpen(true);
                 }}
-                className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 active:scale-95 transition-all"
+                className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm shadow-xl shadow-emerald-500/25 active:scale-95 transition-all"
               >
                 <Plus className="h-4 w-4 stroke-[3]" />
                 <span>Add Your First Service</span>
-              </button>
-              <button
-                onClick={handleLoadTemplateServices}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-300 border border-slate-800 font-semibold text-xs active:scale-95 transition-all"
-              >
-                <Flame className="h-4 w-4 text-amber-400" />
-                <span>Load Sample Templates</span>
               </button>
             </div>
           </div>
